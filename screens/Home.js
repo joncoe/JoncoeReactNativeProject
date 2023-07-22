@@ -66,7 +66,7 @@ const Home = ({ navigation: { navigate }, route }) => {
           onPress={() => {
             navigate('ColorPaletteModal');
           }}>
-          <Text>Open Modal</Text>
+          <Text style={styles.launchButtonText}>アドミンモーダルが開ける</Text>
         </TouchableOpacity>
       }
     />
@@ -77,6 +77,12 @@ const styles = StyleSheet.create({
   list: {
     padding: 20,
     backgroundColor: 'white',
+  },
+  launchButtonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'teal',
+    marginBottom: 10,
   },
 });
 
