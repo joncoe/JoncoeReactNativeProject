@@ -45,19 +45,17 @@ const COLOR_PALETTES = [
 
 const Home = ({ navigation: { navigate } }) => {
   return (
-    <View>
-      <FlatList
-        style={styles.list}
-        data={COLOR_PALETTES}
-        keyExtractor={item => item.paletteName}
-        renderItem={({ item }) => (
-          <PalettePreview
-            onPress={() => navigate('ColorPalette', item)}
-            palette={item}
-          />
-        )}
-      />
-    </View>
+    <FlatList
+      style={styles.list}
+      data={COLOR_PALETTES}
+      keyExtractor={item => item.paletteName}
+      renderItem={({ item }) => (
+        <PalettePreview
+          onPress={() => navigate('ColorPalette', item)}
+          palette={item}
+        />
+      )}
+    />
   );
 };
 
