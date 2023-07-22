@@ -18,11 +18,14 @@ const Home = ({ navigation: { navigate } }) => {
 
   useEffect(() => {
     fetchColors();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
     await fetchColors();
+    // the API call is very fast. Add a minimum for better UX
     setTimeout(() => {
       setIsRefreshing(false);
     }, 800);
