@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 
 const SOLARIZED = [
   { colorName: 'Base03', hexCode: '#002b36' },
@@ -36,36 +36,23 @@ const FRONTEND_MASTERS = [
   { colorName: 'Orange', hexCode: '#e66225' },
 ];
 
+const COLOR_PALETTES = [
+  { paletteName: 'ソララーイゼー', colors: SOLARIZED },
+  { paletteName: 'フロントエンドマスター', colors: FRONTEND_MASTERS },
+  { paletteName: '虹', colors: RAINBOW },
+];
+
 const Home = ({ navigation: { navigate } }) => {
   return (
     <View>
-      <TouchableOpacity
-        onPress={() =>
-          navigate('ColorPalette', {
-            paletteName: 'ソラリゼーションダーク',
-            colorList: SOLARIZED,
-          })
-        }>
-        <Text>ソラリゼーションダーク</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() =>
-          navigate('ColorPalette', {
-            paletteName: '虹',
-            colorList: RAINBOW,
-          })
-        }>
-        <Text>虹</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() =>
-          navigate('ColorPalette', {
-            paletteName: 'フロントエンドマスター',
-            colorList: FRONTEND_MASTERS,
-          })
-        }>
-        <Text>フロントエンドマスター</Text>
-      </TouchableOpacity>
+      <FlatList
+        data={COLOR_PALETTES}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => navigate('ColorPalette', item)}>
+            <Text>{item.paletteName}</Text>
+          </TouchableOpacity>
+        )}
+      />
     </View>
   );
 };
