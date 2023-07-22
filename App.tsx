@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, FlatList } from 'react-native';
 import ColorBox from './components/ColorBox';
 
 const COLORS = [
@@ -25,13 +25,18 @@ const App = () => {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Text style={styles.heading}>
-          Here are some boxes of different colours
-        </Text>
-        <ColorBox hexCode={'#2aa198'} colorName={'Cyan'} />
-        <ColorBox hexCode={'#268bd2'} colorName={'Blue'} />
-        <ColorBox hexCode={'#d33682'} colorName={'Magenta'} />
-        <ColorBox hexCode={'#cb4b16'} colorName={'Orange'} />
+        <FlatList
+          data={COLORS}
+          renderItem={({ item }) => (
+            <ColorBox hexCode={item.hexCode} colorName={item.colorName} />
+          )}
+          ListHeaderComponent={
+            <Text style={styles.heading}>
+              Here are some boxes of different colours
+            </Text>
+          }
+          keyExtractor={item => item.hexCode}
+        />
       </View>
     </SafeAreaView>
   );
