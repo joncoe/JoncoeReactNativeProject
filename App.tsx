@@ -14,7 +14,7 @@ const App = () => {
         <Stack.Screen
           name="Home"
           component={Home}
-          options={{ title: 'ホーム 🏠' }}
+          options={{ title: 'ホーム' }}
         />
         <Stack.Screen
           name="ColorPalette"
