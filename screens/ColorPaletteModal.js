@@ -1,25 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   View,
   Text,
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 
 const ColorPaletteModal = () => {
   const [name, setName] = useState('');
-  const onChangeText = e => {
-    console.log(e);
-  };
+
+  const handleSubmit = useCallback(
+    e => {
+      if (!name) {
+        Alert.alert('❣️ Please enter a Palette Name');
+      }
+    },
+    [name],
+  );
+
   return (
     <View style={styles.container}>
+      <Text style={styles.name}>Color Palette Name</Text>
       <TextInput
         style={styles.input}
         value={name}
         onChangeText={text => setName(text)}
+        placeholder="Palette Name"
       />
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Submit</Text>
       </TouchableOpacity>
     </View>
@@ -35,7 +45,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   container: {
-    padding: 5,
+    padding: 10,
     paddingTop: 15,
     backgroundColor: 'white',
     flex: 1,
@@ -51,6 +61,9 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
+  },
+  name: {
+    marginBottom: 10,
   },
 });
 
