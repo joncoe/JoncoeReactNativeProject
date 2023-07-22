@@ -2,21 +2,21 @@ import React, { useEffect, useCallback, useState } from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import PalettePreview from '../components/PalettePreview';
 
+const API_URL = 'https://color-palette-api.kadikraman.now.sh/palettes';
+
 const Home = ({ navigation: { navigate } }) => {
   const [colors, setColors] = useState({});
 
-  const getColors = useCallback(async () => {
-    const response = await fetch(
-      'https://color-palette-api.kadikraman.now.sh/palettes',
-    );
-    const colors = await response.json();
+  const fetchColors = useCallback(async () => {
+    const response = await fetch(API_URL);
     if (response.ok) {
-      setColors(colors);
+      const paletteList = await response.json();
+      setColors(paletteList);
     }
-  });
+  }, []);
 
   useEffect(() => {
-    getColors();
+    fetchColors();
   }, []);
 
   return (
