@@ -20,6 +20,22 @@ const COLORS = [
   { colorName: 'Green', hexCode: '#859900' },
 ];
 
+const RAINBOW = [
+  { colorName: 'Red', hexCode: '#FF0000' },
+  { colorName: 'Orange', hexCode: '#FF7F00' },
+  { colorName: 'Yellow', hexCode: '#FFFF00' },
+  { colorName: 'Green', hexCode: '#00FF00' },
+  { colorName: 'Violet', hexCode: '#8B00FF' },
+];
+
+const FRONTEND_MASTERS = [
+  { colorName: 'Red', hexCode: '#c02d28' },
+  { colorName: 'Black', hexCode: '#3e3e3e' },
+  { colorName: 'Grey', hexCode: '#8a8a8a' },
+  { colorName: 'White', hexCode: '#ffffff' },
+  { colorName: 'Orange', hexCode: '#e66225' },
+];
+
 const Home = ({ navigation: { navigate } }) => {
   return (
     <View>
@@ -31,6 +47,24 @@ const Home = ({ navigation: { navigate } }) => {
           })
         }>
         <Text>ソラリゼーションダーク</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() =>
+          navigate('ColorPalette', {
+            paletteName: '虹',
+            colorList: RAINBOW,
+          })
+        }>
+        <Text>虹</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() =>
+          navigate('ColorPalette', {
+            paletteName: 'フロントエンドマスター',
+            colorList: FRONTEND_MASTERS,
+          })
+        }>
+        <Text>フロントエンドマスター</Text>
       </TouchableOpacity>
     </View>
   );
