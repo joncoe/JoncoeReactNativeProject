@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
-const COLORS = [
+const SOLARIZED = [
   { colorName: 'Base03', hexCode: '#002b36' },
   { colorName: 'Base02', hexCode: '#073642' },
   { colorName: 'Base01', hexCode: '#586e75' },
@@ -43,7 +43,7 @@ const Home = ({ navigation: { navigate } }) => {
         onPress={() =>
           navigate('ColorPalette', {
             paletteName: 'ソラリゼーションダーク',
-            colorList: COLORS,
+            colorList: SOLARIZED,
           })
         }>
         <Text>ソラリゼーションダーク</Text>
