@@ -6,10 +6,16 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
+  Switch,
+  FlatList,
 } from 'react-native';
+
+import COLORS from '../data/colorList';
+import { newColorShade } from '../utils/newColorShade';
 
 const ColorPaletteModal = ({ navigation }) => {
   const [name, setName] = useState('');
+  const [selectedColors, setSelectedColors] = useState([]);
 
   const handleSubmit = useCallback(
     e => {
@@ -26,6 +32,19 @@ const ColorPaletteModal = ({ navigation }) => {
     [name],
   );
 
+  const handleUpdate = useCallback(
+    (color, newValue) => {
+      if (newValue === true) {
+        setSelectedColors(current => [...current, color]);
+      } else {
+        setSelectedColors(current =>
+          current.filter(c => c.colorName !== color.colorName),
+        );
+      }
+    },
+    [selectedColors, setSelectedColors],
+  );
+
   return (
     <View style={styles.container}>
       <Text style={styles.name}>Color Palette Name</Text>
@@ -34,6 +53,34 @@ const ColorPaletteModal = ({ navigation }) => {
         value={name}
         onChangeText={text => setName(text)}
         placeholder="Palette Name"
+      />
+      <FlatList
+        data={COLORS}
+        keyExtractor={item => item.colorName}
+        renderItem={({ item }) => (
+          <View style={styles.color}>
+            <Text>{item.colorName}</Text>
+            <Switch
+              value={
+                !!selectedColors.find(
+                  color => color.colorName === item.colorName,
+                )
+              }
+              onValueChange={newValue => handleUpdate(item, newValue)}
+              trackColor={{
+                false: newColorShade(item.hexCode, -50),
+                true: item.hexCode,
+              }}
+              ios_backgroundColor={{
+                false: newColorShade(item.hexCode, -50),
+                true: item.hexCode,
+              }}
+              thumbColor={
+                false ? item.hexCode : newColorShade(item.hexCode, -50)
+              }
+            />
+          </View>
+        )}
       />
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Submit</Text>
@@ -70,6 +117,14 @@ const styles = StyleSheet.create({
   },
   name: {
     marginBottom: 10,
+  },
+  color: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
   },
 });
 
